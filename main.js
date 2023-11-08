@@ -24,9 +24,10 @@ const template = partyList.map(events => {
         
         />
         <p>${events.description}</p>
+     <button data-id="${events.id}">Delete Party</button>
       </section>`
     )
-}).json('');
+}) .join('');
 mainEl.innerHTML = template;
 }
 async function partyApp() {
@@ -39,9 +40,9 @@ partyApp();
 
 formEl.addEventListener('submit', async (event) => {
    event.preventDefault(); 
-
-   const respone = await fetch(BASE_URL, {
-method: 'POST',
+    try {
+        await fetch(BASE_URL,{
+            method: 'POST',
 headers: {
     'Content-Type': 'application/json',
 },
@@ -58,4 +59,17 @@ body: JSON.stringify({
    locaTion.value = '';
 
    partyApp();
-});
+
+}catch (err) {
+    console.log(err);
+}
+ });
+
+ mainEl.addEventListener('click', async (event) => {
+    console.log("whole main tag");
+    if(event.target.matches('button')){
+        const id = event.target.dataset.id;
+        console.log(id);
+    }
+ })
+    
