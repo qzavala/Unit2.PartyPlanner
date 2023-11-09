@@ -68,6 +68,10 @@ mainEl.addEventListener("click", async (event) => {
   console.log("whole main tag");
   if (event.target.matches("button")) {
     const id = event.target.dataset.id;
+    await fetch(`${BASE_URL}/${id}`, {
+        method: "DELETE",
+    })
     console.log(id);
+    partyApp();
   }
 });
